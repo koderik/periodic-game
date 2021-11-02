@@ -12,3 +12,11 @@ num_1, num_2 = abs(random.randint(int_weight-20, int_weight+20))
     ans_2= str(num_2)+"."+str(dec_2)
     guess_dict = {}
 ```
+get alternative
+```
+def get_alternative(name):
+    guess = name
+    while guess == name:
+        guess = random.choice(list(a_dict.keys()))
+    return guess
+```
