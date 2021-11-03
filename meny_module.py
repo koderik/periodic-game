@@ -1,6 +1,7 @@
 import sys
 import file_reader as fr
 import question_module as que
+import guess_window as game
 
 
 a_dict = {}
@@ -28,6 +29,10 @@ def meny_practice_weights():
         que.get_question_weight(a_list, a_dict)
 
 
+def meny_start_game():
+    game.start()
+
+
 def meny_exit():
     print("Exiting...")
     sys.exit()
@@ -39,7 +44,8 @@ def print_meny():
     print("2. Träna på atomnummer")
     print("3. Träna på atombeteckningar")
     print("4. Träna på atomvikter")
-    print("5. Sluta")
+    print("5. Starta spelet")
+    print("6. Sluta")
     print("-----------------------------------")
 
 
@@ -50,7 +56,8 @@ def meny():
         "1": meny_print,
         "2": meny_practice_numbers,
         "3": meny_practice_names,
-        "5": meny_exit,
+        "6": meny_exit,
+        "5": meny_start_game,
         "4": meny_practice_weights,
     }
     ans = ""
