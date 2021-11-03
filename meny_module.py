@@ -23,6 +23,11 @@ def meny_practice_names():
         que.get_question_name(a_list, a_dict)
 
 
+def meny_practice_weights():
+    for i in range(3):
+        que.get_question_weight(a_list, a_dict)
+
+
 def meny_exit():
     print("Exiting...")
     sys.exit()
@@ -33,7 +38,8 @@ def print_meny():
     print("1. Visa alla atomer")
     print("2. Träna på atomnummer")
     print("3. Träna på atombeteckningar")
-    print("4. Sluta")
+    print("4. Träna på atomvikter")
+    print("5. Sluta")
     print("-----------------------------------")
 
 
@@ -44,7 +50,8 @@ def meny():
         "1": meny_print,
         "2": meny_practice_numbers,
         "3": meny_practice_names,
-        "4": meny_exit,
+        "5": meny_exit,
+        "4": meny_practice_weights,
     }
     ans = ""
     print_meny()
