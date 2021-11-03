@@ -1,7 +1,7 @@
 import sys
 import file_reader as fr
 import question_module as que
-import guess_window as game
+import game_window as game
 
 
 a_dict = {}
@@ -30,7 +30,7 @@ def meny_practice_weights():
 
 
 def meny_start_game():
-    game.start()
+    Game = game.Game_window()
 
 
 def meny_exit():
