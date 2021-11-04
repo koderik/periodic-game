@@ -2,6 +2,7 @@ import sys
 import file_reader as fr
 import question_module as que
 import game_window as game
+import atom_list_window as atom_window
 
 
 a_dict = {}
@@ -9,9 +10,7 @@ a_list = []
 
 
 def meny_print():
-    print("Number, Name, Weight:")
-    for index, element in enumerate(a_list):
-        print(index + 1, a_dict[element], element)
+    a_win = atom_window.Atom_list_window(a_list, a_dict)
 
 
 def meny_practice_numbers():
@@ -69,3 +68,6 @@ def meny():
             print_meny()
         else:
             print("Välj alternativ ur menyn")
+
+
+meny()
