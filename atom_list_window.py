@@ -9,12 +9,12 @@ class Atom_list_window:
         self.a_list = a_list
         self.a_dict = a_dict
         self.root = Tk()
+        self.root.title("Atom List")
         self.draw_table()
-        #self.create_button()
+        # self.create_button()
         self.root.mainloop()
 
     def draw_table(self):
-        
         self.counter = 0
         height = 35
         min = 0
@@ -61,6 +61,7 @@ class Atom_list_window:
     def which_button(self, button, data):
         if data == "exit":
             self.root.destroy()
+
 
 """
 a_dict, a_list = fr.get_atoms("avikt.txt")

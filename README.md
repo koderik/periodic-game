@@ -2,6 +2,9 @@
 Periodic table game
 
 
+info about hur man updaterar labels
+https://www.delftstack.com/howto/python-tkinter/how-to-change-the-tkinter-label-text/
+
 code graveyard:
 
 test code for generating guess answers when guessing weight
