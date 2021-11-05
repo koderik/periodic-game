@@ -1,13 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 import file_reader as fr
+from atom import *
 
 
 class Atom_list_window:
-    def __init__(self, a_list, a_dict):
+    def __init__(self, a_list):
         self.on = True
         self.a_list = a_list
-        self.a_dict = a_dict
+
         self.root = Tk()
         self.root.title("Atom List")
         self.draw_table()
@@ -21,7 +22,7 @@ class Atom_list_window:
         x = 0
         for count in range(3):
             for i in range(height):  # Rows
-                if self.counter < 102:
+                if self.counter < 103:
                     self.draw_index(x, count, i)
 
                     self.draw_name(x, i)
@@ -32,13 +33,16 @@ class Atom_list_window:
             x += 3
 
     def draw_weight(self, x, i):
-        textvar = self.a_list[self.counter] + "u"
+        atom = self.a_list.get_number(self.counter + 1)
+        textvar = atom.weight + "u"
         b = Label(self.root, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=i, column=x + 2)
 
     def draw_name(self, x, i):
-        textvar = self.a_dict[self.a_list[self.counter]]
+        atom = self.a_list.get_number(self.counter + 1)
+        textvar = atom.name
+
         b = Label(self.root, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=i, column=x + 1)
@@ -63,7 +67,6 @@ class Atom_list_window:
             self.root.destroy()
 
 
-"""
-a_dict, a_list = fr.get_atoms("avikt.txt")
-awindow = Atom_list_window(a_list, a_dict)
-"""
+a_list = Atom_list()
+a_list.get_atoms("avikt.txt", "period_coord.txt")
+awindow = Atom_list_window(a_list)

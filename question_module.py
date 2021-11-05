@@ -1,10 +1,11 @@
 import random
+from atom import *
 
 
-def get_question_number(a_list, a_dict):
-    weight = random.choice(a_list)
-    index = a_list.index(weight)
-    name = a_dict[weight]
+def get_question_number(a_list):
+    atom = random.choice(a_list)
+    index = atom.number
+    name = atom.name
 
     attempts = 3
 
@@ -22,10 +23,10 @@ def get_question_number(a_list, a_dict):
         print("You didn't manage to guess it correctly, the answer was", index)
 
 
-def get_question_name(a_list, a_dict):
-    weight = random.choice(a_list)
-    index = a_list.index(weight)
-    name = a_dict[weight]
+def get_question_name(a_list):
+    atom = random.choice(a_list)
+    index = atom.number
+    name = atom.name
 
     attempts = 3
 
@@ -43,33 +44,33 @@ def get_question_name(a_list, a_dict):
         print("You didn't manage to guess it correctly, the answer was", name)
 
 
-def get_alternatives(weight, a_list, index):
-    guess_list = [weight]
+def get_alternatives(atom, a_list, index):
+    guess_list = [atom]
     a_list_temp = []
     for element in a_list:
         a_list_temp.append(element)
     for i in range(index):
-        if guess_list[i] in a_list_temp:
-            a_list_temp.pop(a_list_temp.index(guess_list[i]))
+        if atom in a_list_temp:
+            a_list_temp.pop(a_list_temp.index(atom))
         random_element = random.choice(a_list_temp)
         guess_list.append(random_element)
     return guess_list
 
 
-def get_question_weight(a_list, a_dict):
-    weight = random.choice(a_list)
+def get_question_weight(a_list):
+    atom = random.choice(a_list)
 
-    name = a_dict[weight]
-    guess_list = get_alternatives(weight, a_list, 2)
+    name = atom.name
+    guess_list = get_alternatives(atom, a_list, 2)
     random.shuffle(guess_list)  # TODO fortsätt göra en liten gisnsingsmeny här
     attempts = 2
 
     print("Guess the atom weight of", name)
     for index, element in enumerate(guess_list):
-        print(str(index + 1) + ":" + element)
+        print(str(index + 1) + ":" + element.weight)
     while attempts > 0:
         answer = input("Guess: ")
-        if answer == str(guess_list.index(weight) + 1):
+        if answer == str(guess_list.index(atom) + 1):
             break
         attempts -= 1
         if attempts > 0:
@@ -80,8 +81,8 @@ def get_question_weight(a_list, a_dict):
         print("You didn't manage to guess it correctly, the answer was", index)
 
 
-"""
-import file_reader as fr
-
-a_dict, a_list = fr.get_atoms("avikt.txt")
-get_question_weight(a_list, a_dict)"""
+a_list = Atom_list()
+a_list.get_atoms("avikt.txt", "period_coord.txt")
+get_question_name(a_list)
+get_question_weight(a_list)
+get_question_number(a_list)

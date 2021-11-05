@@ -5,9 +5,9 @@ import time
 
 
 class Question_frame:
-    def __init__(self, a_list, a_dict):
+    def __init__(self, a_list):
         self.a_list = a_list
-        self.a_dict = a_dict
+
         self.answer = ""
         self.root = tk.Tk()
         # self.attempts = 0
@@ -21,10 +21,10 @@ class Question_frame:
     def get_question(self):
 
         self.attempts = 3
-        weight = random.choice(self.a_list)
-        index = self.a_list.index(weight)
+        atom = random.choice(self.a_list)
+        index = atom.number
 
-        name = self.a_dict[weight]
+        name = atom.name
         question_string = "Guess the atom name of: " + str(index + 1)
         self.answer = name
         self.draw_window(question_string)
@@ -78,5 +78,8 @@ class Question_frame:
             self.e.delete(0, "end")
 
 
-a_dict, a_list = fr.get_atoms("avikt.txt")
-awindow = Question_frame(a_list, a_dict)
+from atom import *
+
+a_list = Atom_list()
+a_list.get_atoms("avikt.txt", "period_coord.txt")
+awindow = Question_frame(a_list)
