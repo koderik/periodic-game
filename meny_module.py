@@ -1,26 +1,23 @@
 import sys
 import file_reader as fr
 import question_module as que
-import game_window as game
-import atom_list_window as atom_window
+import game_window as g_w
+import atom_list_window as a_w
+import question_window as q_w
+from atom import *
 
-
-a_dict = {}
-a_list = []
 
 
 def meny_print():
-    a_win = atom_window.Atom_list_window(a_list, a_dict)
+    a_win = a_w.Atom_list_window(a_list)
 
 
 def meny_practice_numbers():
-    for i in range(3):
-        que.get_question_number(a_list, a_dict)
+    q_win = q_w.Question_frame(a_list, "number")
 
 
 def meny_practice_names():
-    for i in range(3):
-        que.get_question_name(a_list, a_dict)
+    q_win = q_w.Question_frame(a_list, "name")
 
 
 def meny_practice_weights():
@@ -29,7 +26,7 @@ def meny_practice_weights():
 
 
 def meny_start_game():
-    Game = game.Game_window()
+    Game = g_w.Game_window(a_list)
 
 
 def meny_exit():
@@ -49,8 +46,7 @@ def print_meny():
 
 
 def meny():
-    global a_dict, a_list
-    a_dict, a_list = fr.get_atoms("avikt.txt")
+    
     items = {
         "1": meny_print,
         "2": meny_practice_numbers,
@@ -70,4 +66,6 @@ def meny():
             print("Välj alternativ ur menyn")
 
 
+a_list = Atom_list()
+a_list.get_atoms("avikt.txt", "period_coord.txt")
 meny()
