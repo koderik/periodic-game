@@ -1,6 +1,4 @@
 from tkinter import *
-from tkinter import ttk
-import file_reader as fr
 from atom import *
 
 

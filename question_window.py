@@ -1,7 +1,6 @@
 from atom import *
 import random
 import tkinter as tk
-import file_reader as fr
 import time
 
 

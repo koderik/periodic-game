@@ -1,12 +1,9 @@
 import random
 import tkinter as tk
-import file_reader as fr
 import time
 import sys
-import file_reader as fr
-import question_module as que
 import game_window as g_w
-import atom_list_window as a_w
+import list_window as a_w
 import question_window as q_w
 from atom import *
 
