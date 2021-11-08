@@ -66,7 +66,8 @@ class Atom_list_window:
         if data == "exit":
             self.root.destroy()
 
-
+'''
 a_list = Atom_list()
 a_list.get_atoms("avikt.txt", "period_coord.txt")
 awindow = Atom_list_window(a_list)
+'''
