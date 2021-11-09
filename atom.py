@@ -41,27 +41,20 @@ class Atom:
         return float(self.weight) < float(other.weight)
 
 
-class Atom_list:
+class AtomList:
     """List of Atoms
     """
 
-    def __init__(self):
+    def __init__(self, file_weight="avikt.txt", file_coord="period_coord.txt"):
         """Constructor, creates empty list
         """
         self.a_list = []
-
-    def get_atoms(self, file_weight, file_coord):
-        """Reads atoms from file
-
-        Args:
-            file_weight (str): file name with list of atom names and weight
-            file_coord (str): file name with list of coordinates and atom names
-        """
         self.fill_list(file_weight)
 
         self.set_numbers()
         self.set_coords(file_coord)
 
+   
     def __iter__(self):
         """Makes object iterable
 
@@ -97,7 +90,7 @@ class Atom_list:
             name (str): name of Atom to search for
 
         Returns:
-            Atom: Atom with specified name
+            Atom: Atom with specified name, or empty Atom if no such atom exists
         """
         for atom in self.a_list:
             if name == atom.name:
@@ -111,12 +104,12 @@ class Atom_list:
             weight (str): weight of Atom to search for
 
         Returns:
-            Atom: Atom with specified weight
+            Atom: Atom with specified weight, or empty Atom if no such atom exists
         """
         for atom in self.a_list:
             if weight == atom.weight:
                 return atom
-        return -1
+        return Atom()
 
     def get_number(self, num):
         """Getter for atom at specifik number, linear search
@@ -125,7 +118,7 @@ class Atom_list:
             number (str): number of Atom to search for
 
         Returns:
-            Atom: Atom with specified number
+            Atom: Atom with specified number, or empty Atom if no such atom exists
         """
         for atom in self.a_list:
             if num == atom.number:
@@ -140,12 +133,12 @@ class Atom_list:
             y (int): specific y coord
 
         Returns:
-            Atom: Atom with specified x, y coord
+            Atom: Atom with specified x, y coord, or empty Atom if no such atom exists
         """
         for atom in self.a_list:
             if atom.x == x and atom.y == y:
                 return atom
-        return -1
+        return Atom()
 
     def switch(self, index):
         """Switches places of index and item in front of index, inplace

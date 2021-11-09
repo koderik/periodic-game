@@ -2,7 +2,7 @@ from tkinter import *
 from atom import *
 
 
-class Atom_list_window:
+class ListFrame:
     def __init__(self, a_list):
         self.on = True
         self.a_list = a_list

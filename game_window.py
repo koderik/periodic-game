@@ -1,19 +1,21 @@
+from atom import *
 import tkinter as tk
 import random
 import os
 import sys
 
 """
-    TODO Sätt lite rubriker på olika rutor, gör vinstruta om man svarar rätt på alla frågor dvs när index out of range
-    TODO Flytta på La och Ac så de ligger där nere, tolkningsfråga iofs
-    """
+TODO Sätt lite rubriker på olika rutor, gör vinstruta om man svarar rätt på alla frågor dvs när index out of range
+TODO Flytta på La och Ac så de ligger där nere, tolkningsfråga iofs
+"""
 
 
-class Game_window:
+class GameFrame:
     def __init__(self, a_list):
         self.a_list = a_list
-        self.current_guess = ""
+        self.current_question = ""
         self.root = tk.Tk()
+        self.root.title("Game")
         self.answer_list = []
 
         self.draw_buttons()
@@ -27,9 +29,9 @@ class Game_window:
         if data == "quit":
             self.root.destroy()
 
-        elif data == self.current_guess:
+        elif data == self.current_question:
             button.config(text=data, highlightbackground="green")
-            self.answer_list.pop(self.answer_list.index(self.current_guess))
+            self.answer_list.pop(self.answer_list.index(self.current_question))
             self.get_question()
 
     def show_random(self, message):
@@ -69,11 +71,11 @@ class Game_window:
         for y in range(9):
             for x in range(18):
                 atom = self.a_list.get_xy(x, y)
-
+                if atom.name == "":
+                    continue
                 color = "yellow"
                 color_fg = "black"
-                if atom == -1:
-                    continue
+
                 if y > 6:
                     color = "blue"
                 button = tk.Button(self.root,
@@ -93,13 +95,11 @@ class Game_window:
                 self.answer_list.append(atom.name)
 
     def get_question(self):
-        self.current_guess = random.choice(self.answer_list)
-        self.show_random(self.current_guess)
+        self.current_question = random.choice(self.answer_list)
+        self.show_random(self.current_question)
 
 
 """
-from atom import *
-
-a_list = Atom_list()
-a_list.get_atoms("avikt.txt", "period_coord.txt")
-sajk = Game_window(a_list)"""
+a_list = AtomList()
+sajk = GameFrame(a_list)
+"""
