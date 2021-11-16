@@ -31,7 +31,7 @@ class MenyFrame:
         row = 1
         for key in functions.keys():
             label_text = key
-            
+
             button = tk.Button(self.root, width=16, height=4, text=label_text)
             button.config(font=("Courier", 20))
             button.config(highlightbackground="white", fg="blue")
@@ -41,22 +41,33 @@ class MenyFrame:
         self.root.mainloop()
 
     def meny_print(self):
+        """Creates new window with list of atoms
+        """
         a_win = a_w.ListFrame(a_list)
 
     def meny_practice_numbers(self):
+        """Creates new window with question of type "number"
+        """
         q_win = q_w.QuestionFrame(a_list, "number")
 
     def meny_practice_names(self):
+        """Creates new window with question of type "name"
+        """
         q_win = q_w.QuestionFrame(a_list, "name")
 
     def meny_practice_weights(self):
+        """Creates new window with question of type "number"
+        """
         w_win = q_w.QuestionFrame(a_list, "weight")
 
     def meny_start_game(self):
+        """Creates new window with atom guessing game
+        """
         Game = g_w.GameFrame(a_list)
 
     def meny_exit(self):
-        print("Exiting...")
+        """Exits program
+        """
         sys.exit()
 
 
