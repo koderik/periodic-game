@@ -4,14 +4,14 @@ import random
 import os
 import sys
 
-"""
-TODO Sätt lite rubriker på olika rutor, gör vinstruta om man svarar rätt på alla frågor dvs när index out of range
-TODO Flytta på La och Ac så de ligger där nere, tolkningsfråga iofs
-"""
-
 
 class GameFrame:
     def __init__(self, a_list):
+        """Constructor, draws window and handles button presses
+
+        Args:
+            a_list (Atom_list): list of atoms
+        """
         self.a_list = a_list
         self.current_question = ""
         self.root = tk.Tk()
@@ -24,6 +24,12 @@ class GameFrame:
         self.root.mainloop()
 
     def which_button(self, button, data):
+        """Interpets what button has been pressed and runs functions
+
+        Args:
+            button (Button): button that has been pressed
+            data (str): button tag info
+        """
         if data == "new":
             self.get_question()
         if data == "quit":
@@ -35,12 +41,19 @@ class GameFrame:
             self.get_question()
 
     def show_random(self, message):
+        """Draws question label
+
+        Args:
+            message (str): name of atom to guess
+        """
         text_string = "Where is: " + message + "?"
         label = tk.Label(self.root, text=text_string)
 
         label.grid(row=1, column=6, columnspan=4)
 
     def draw_reset(self):
+        """Draws reset question label and reset button
+        """
         button = tk.Button(self.root,
                            width=7,
                            height=2,
@@ -68,6 +81,8 @@ class GameFrame:
         button.grid(row=2, column=9)
 
     def draw_buttons(self):
+        """Draws all atom buttons
+        """
         for y in range(9):
             for x in range(18):
                 atom = self.a_list.get_xy(x, y)
@@ -95,8 +110,13 @@ class GameFrame:
                 self.answer_list.append(atom.name)
 
     def get_question(self):
-        self.current_question = random.choice(self.answer_list)
-        self.show_random(self.current_question)
+        """ Gets new question 
+        """
+        try:
+            self.current_question = random.choice(self.answer_list)
+            self.show_random(self.current_question)
+        except IndexError:
+            self.show_random("Du är klar, bra jobbat")
 
 
 """

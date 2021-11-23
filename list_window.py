@@ -18,7 +18,7 @@ class ListFrame:
         self.root = Tk()
         self.root.title("Atom List")
         self.draw_table()
-        # self.create_button()
+        
         self.root.mainloop()
 
     def draw_table(self):

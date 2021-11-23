@@ -54,7 +54,6 @@ class AtomList:
         self.set_numbers()
         self.set_coords(file_coord)
 
-   
     def __iter__(self):
         """Makes object iterable
 

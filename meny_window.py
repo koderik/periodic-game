@@ -10,6 +10,11 @@ from atom import *
 
 class MenyFrame:
     def __init__(self, a_list):
+        """Constructor, draws window and handles button presses
+
+        Args:
+            a_list (Atom_list): list of atoms
+        """
         functions = {
             "Show All": self.meny_print,
             "Practice Numbers": self.meny_practice_numbers,
