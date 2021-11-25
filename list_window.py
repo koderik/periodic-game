@@ -1,5 +1,4 @@
-from tkinter import *
-from atom import *
+import tkinter as tk
 
 
 class ListFrame:
@@ -14,11 +13,9 @@ class ListFrame:
         """
         self.on = True
         self.a_list = a_list
-
-        self.root = Tk()
+        self.root = tk.Tk()
         self.root.title("Atom List")
         self.draw_table()
-        
         self.root.mainloop()
 
     def draw_table(self):
@@ -26,17 +23,13 @@ class ListFrame:
         """
         self.counter = 0
         height = 35
-        min = 0
         x = 0
         for count in range(3):
             for y in range(height):  # Rows
                 if self.counter < 103:
                     self.draw_index(x, count, y)
-
                     self.draw_name(x, y)
-
                     self.draw_weight(x, y)
-
                     self.counter += 1
             x += 3
 
@@ -49,41 +42,35 @@ class ListFrame:
         """
         atom = self.a_list.get_number(self.counter + 1)
         textvar = atom.weight + "u"
-        b = Label(self.root, text=textvar)
+        b = tk.Label(self.root, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x + 2)
 
     def draw_name(self, x, y):
+        """Draws name of atom
+
+        Args:
+            x (int): x-coordinate
+            y (int): y-coordinate
+        """
         atom = self.a_list.get_number(self.counter + 1)
         textvar = atom.name
-
-        b = Label(self.root, text=textvar)
+        b = tk.Label(self.root, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x + 1)
 
     def draw_index(self, x, count, y):
+        """Draws the atom number
+
+        Args:
+            x (int): x-coordinate
+            count (int): row counter
+            y (int): y-coordinate
+        """
         if count > 0:
             textvar = "\t" + str(self.counter + 1) + ":"
         else:
             textvar = str(self.counter + 1) + ":"
-        b = Label(self.root, text=textvar)
+        b = tk.Label(self.root, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x)
-
-    def create_button(self):
-        button = Button(width=3, height=2, text="Exit?")
-        button.config(highlightbackground="white", fg="blue")
-        button.config(command=lambda m=button,
-                      d="exit": self.which_button(m, d))
-        button.grid(row=32, column=7, rowspan=2)
-
-    def which_button(self, button, data):
-        if data == "exit":
-            self.root.destroy()
-
-
-'''
-a_list = Atom_list()
-a_list.get_atoms("avikt.txt", "period_coord.txt")
-awindow = Atom_list_window(a_list)
-'''

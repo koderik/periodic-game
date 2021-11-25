@@ -1,11 +1,11 @@
-from atom import *
 import tkinter as tk
 import random
-import os
-import sys
 
 
 class GameFrame:
+    """Frame that displays the atom guessing game
+    """
+
     def __init__(self, a_list):
         """Constructor, draws window and handles button presses
 
@@ -17,7 +17,6 @@ class GameFrame:
         self.root = tk.Tk()
         self.root.title("Game")
         self.answer_list = []
-
         self.draw_buttons()
         self.draw_reset()
         self.get_question()
@@ -34,7 +33,6 @@ class GameFrame:
             self.get_question()
         if data == "quit":
             self.root.destroy()
-
         elif data == self.current_question:
             button.config(text=data, highlightbackground="green")
             self.answer_list.pop(self.answer_list.index(self.current_question))
@@ -117,9 +115,3 @@ class GameFrame:
             self.show_random(self.current_question)
         except IndexError:
             self.show_random("Du är klar, bra jobbat")
-
-
-"""
-a_list = AtomList()
-sajk = GameFrame(a_list)
-"""

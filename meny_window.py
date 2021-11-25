@@ -1,6 +1,4 @@
-import random
 import tkinter as tk
-import time
 import sys
 import game_window as g_w
 import list_window as a_w
@@ -9,6 +7,8 @@ from atom import *
 
 
 class MenyFrame:
+    """Frame that displays menu
+    """
     def __init__(self, a_list):
         """Constructor, draws window and handles button presses
 
@@ -23,20 +23,16 @@ class MenyFrame:
             "Start Game": self.meny_start_game,
             "Exit": self.meny_exit,
         }
-
         self.a_list = a_list
         self.root = tk.Tk()
         self.root.title("Meny")
-
         label_text = "Meny"
         q = tk.Label(self.root, text=label_text)
         q.config(font=("Courier", 20))
         q.grid(row=0, column=0, padx=30, pady=30)
-
         row = 1
         for key in functions.keys():
             label_text = key
-
             button = tk.Button(self.root, width=16, height=4, text=label_text)
             button.config(font=("Courier", 20))
             button.config(highlightbackground="white", fg="blue")

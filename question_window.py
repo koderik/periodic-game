@@ -18,7 +18,7 @@ class QuestionFrame:
         self.answer = ""
         self.root = tk.Tk()
         self.root.title("Guess the "+type.capitalize())
-        self.get_question(self.type)
+        self.get_question()
         self.result_label = tk.Label(self.root)
         self.result_label.config(font=("Courier", 17))
         self.result_label.grid(row=4, column=0, padx=0, pady=30, columnspan=3)
@@ -44,7 +44,7 @@ class QuestionFrame:
             submit_button.grid(row=(index + 1), column=0,
                                columnspan=6, padx=10, pady=0)
 
-    def get_question(self, type):
+    def get_question(self):
         """Generates question and answer depending on type
 
         Args:
@@ -72,12 +72,11 @@ class QuestionFrame:
             self.attempts = 2
             atom = random.choice(self.a_list)
             index = atom.number
-            weight = atom.weight
             name = atom.name
             question_string = "Guess the atom weight of: " + name
             self.answer = atom.weight
             # The last argument can be changed if more alternatives are needed
-            guess_list = self.get_alternatives(atom, self.a_list, 2)
+            guess_list = self.get_alternatives(atom, 2)
             random.shuffle(guess_list)
             self.draw_weight_window(guess_list, question_string)
 
@@ -116,14 +115,14 @@ class QuestionFrame:
                     guess = button.cget("text")
                 if str(guess) == str(self.answer):
                     output = "Good job you guessed it!"
-                    self.get_question(self.type)
+                    self.get_question()
                 elif self.attempts == 0:
                     output = (
                         "You didn't manage to guess it correctly\nThe answer was "
                         + str(self.answer)
                     )
                     self.result_label.config(text=output)
-                    self.get_question(self.type)
+                    self.get_question()
                 else:
                     output = (
                         "You guessed incorrectly. "
@@ -137,15 +136,14 @@ class QuestionFrame:
                     + str(self.answer)
                 )
                 self.result_label.config(text=output)
-                self.get_question(self.type)
+                self.get_question()
 
-    def get_alternatives(self, atom, a_list, index):
+    def get_alternatives(self, atom, index):
         """Helper function that generates a list of three
         atom weights to display when guessing weight
 
         Args:
             atom (Atom): Atom that correspond to the right answer
-            a_list (Atom_list): Atom_list to grab two other atoms from
             index (Int): amount of other alternatives to display, in this case index=2
 
         Returns:
@@ -153,9 +151,9 @@ class QuestionFrame:
         """
         guess_list = [atom]
         a_list_temp = []
-        for element in a_list:
+        for element in self.a_list:
             a_list_temp.append(element)
-        for i in range(index):
+        for _ in range(index):
             if atom in a_list_temp:
                 a_list_temp.pop(a_list_temp.index(atom))
             random_element = random.choice(a_list_temp)
