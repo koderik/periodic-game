@@ -113,7 +113,7 @@ class QuestionFrame:
                     self.answer_field.delete(0, "end")
                 else:
                     guess = button.cget("text")
-                if str(guess) == str(self.answer):
+                if str(guess).lower() == str(self.answer).lower():
                     output = "Good job you guessed it!"
                     self.get_question()
                 elif self.attempts == 0:
@@ -150,12 +150,21 @@ class QuestionFrame:
             list: returns list of three atoms to display in weight question
         """
         guess_list = [atom]
-        a_list_temp = []
-        for element in self.a_list:
-            a_list_temp.append(element)
-        for _ in range(index):
-            if atom in a_list_temp:
-                a_list_temp.pop(a_list_temp.index(atom))
-            random_element = random.choice(a_list_temp)
-            guess_list.append(random_element)
+        self.a_list_temp = [x for x in self.a_list]
+        for i in range(index):
+            guess_list.append(self.add_guess_atom(guess_list[i]))
         return guess_list
+
+    def add_guess_atom(self, atom):
+        """Helper function that suggests atom to guess list and removes from temp list
+
+        Args:
+            atom (Atom): Last atom added to guess_list
+
+        Returns:
+            Atom: atom to add to guess_list
+        """
+        if atom in self.a_list_temp:
+            self.a_list_temp.pop(self.a_list_temp.index(atom))
+        random_element = random.choice(self.a_list_temp)
+        return (random_element)
