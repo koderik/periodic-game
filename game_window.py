@@ -31,8 +31,6 @@ class GameFrame:
         """
         if data == "new":
             self.get_question()
-        if data == "quit":
-            self.root.destroy()
         elif data == self.current_question:
             button.config(text=data, highlightbackground="green")
             self.answer_list.pop(self.answer_list.index(self.current_question))
@@ -64,19 +62,6 @@ class GameFrame:
         button.config(command=lambda m=button,
                       d="new": self.which_button(m, d))
         button.grid(row=1, column=8, columnspan=3)
-
-        button = tk.Button(self.root,
-                           width=3,
-                           height=2,
-                           text="Quit",
-                           )
-        button.config(
-            highlightbackground="white",
-            fg="blue",
-        )
-        button.config(command=lambda m=button,
-                      d="res": self.which_button(m, d))
-        button.grid(row=2, column=9)
 
     def draw_buttons(self):
         """Draws all atom buttons
@@ -113,5 +98,5 @@ class GameFrame:
         try:
             self.current_question = random.choice(self.answer_list)
             self.show_random(self.current_question)
-        except IndexError:
+        except IndexError:  # sloppy implementation but should work nonetheless
             self.show_random("Du är klar, bra jobbat")
