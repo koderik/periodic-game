@@ -75,6 +75,6 @@ class MenyFrame:
         """
         sys.exit()
 
-
-a_list = AtomList()
-awindow = MenyFrame(a_list)
+if __name__ == '__main__':
+    a_list = AtomList()
+    awindow = MenyFrame(a_list)
