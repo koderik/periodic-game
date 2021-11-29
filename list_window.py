@@ -26,12 +26,15 @@ class ListFrame:
         x = 0
         for count in range(3):
             for y in range(height):  # Rows
-                if self.counter < 103:
-                    self.draw_index(x, count, y)
-                    self.draw_name(x, y)
-                    self.draw_weight(x, y)
-                    self.counter += 1
+                self.draw_column(x, y, count)
             x += 3
+
+    def draw_column(self, x, y, count):
+        if self.counter < 103:
+            self.draw_index(x, y, count)
+            self.draw_name(x, y)
+            self.draw_weight(x, y)
+            self.counter += 1
 
     def draw_weight(self, x, y):
         """Draws the weight in a label
@@ -59,7 +62,7 @@ class ListFrame:
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x + 1)
 
-    def draw_index(self, x, count, y):
+    def draw_index(self, x, y, count):
         """Draws the atom number
 
         Args:

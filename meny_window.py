@@ -9,13 +9,14 @@ from atom import *
 class MenyFrame:
     """Frame that displays menu
     """
+
     def __init__(self, a_list):
         """Constructor, draws window and handles button presses
 
         Args:
             a_list (Atom_list): list of atoms
         """
-        functions = {
+        self.functions = {
             "Show All": self.meny_print,
             "Practice Numbers": self.meny_practice_numbers,
             "Practice Names": self.meny_practice_names,
@@ -30,16 +31,19 @@ class MenyFrame:
         q = tk.Label(self.root, text=label_text)
         q.config(font=("Courier", 20))
         q.grid(row=0, column=0, padx=30, pady=30)
-        row = 1
-        for key in functions.keys():
-            label_text = key
-            button = tk.Button(self.root, width=16, height=4, text=label_text)
-            button.config(font=("Courier", 20))
-            button.config(highlightbackground="white", fg="blue")
-            button.config(command=functions[key])
-            button.grid(row=row, column=0, padx=10, pady=5)
-            row += 1
+        self.row = 1
+        for key in self.functions.keys():
+            self.draw_button(key)
         self.root.mainloop()
+
+    def draw_button(self, key):
+        label_text = key
+        button = tk.Button(self.root, width=16, height=4, text=label_text)
+        button.config(font=("Courier", 20))
+        button.config(highlightbackground="white", fg="blue")
+        button.config(command=self.functions[key])
+        button.grid(row=self.row, column=0, padx=10, pady=5)
+        self.row += 1
 
     def meny_print(self):
         """Creates new window with list of atoms
