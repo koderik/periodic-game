@@ -1,22 +1,23 @@
 import tkinter as tk
 
 
-class ListFrame:
+class ListFrame(tk.Frame):
     """Frame with atom list
     """
 
-    def __init__(self, a_list):
-        """Constructor, draws some graphics
+    def __init__(self, container, a_list):
+        """Constructor, sets variables and calls functions to draw table
 
         Args:
-            a_list (Atom_list): list of atoms
+            container (tk.Tk): main frame
+            a_list (AtomList): list of atoms
         """
-        self.on = True
+        super().__init__(container)
+        self.container = container
+
         self.a_list = a_list
-        self.root = tk.Tk()
-        self.root.title("Atom List")
+
         self.draw_table()
-        self.root.mainloop()
 
     def draw_table(self):
         """Draws the table of all the atoms with the atom number, name and weight in three columns
@@ -45,7 +46,7 @@ class ListFrame:
         """
         atom = self.a_list.get_number(self.counter + 1)
         textvar = atom.weight + "u"
-        b = tk.Label(self.root, text=textvar)
+        b = tk.Label(self, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x + 2)
 
@@ -58,7 +59,7 @@ class ListFrame:
         """
         atom = self.a_list.get_number(self.counter + 1)
         textvar = atom.name
-        b = tk.Label(self.root, text=textvar)
+        b = tk.Label(self, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x + 1)
 
@@ -74,6 +75,6 @@ class ListFrame:
             textvar = "\t" + str(self.counter + 1) + ":"
         else:
             textvar = str(self.counter + 1) + ":"
-        b = tk.Label(self.root, text=textvar)
+        b = tk.Label(self, text=textvar)
         b.config(font=("Courier", 20))
         b.grid(row=y, column=x)

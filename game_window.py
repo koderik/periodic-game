@@ -2,11 +2,13 @@ import tkinter as tk
 import random
 
 
-class GameFrame:
+class GameFrame(tk.Frame):
     """Frame that displays the atom guessing game
     """
 
-    def __init__(self, a_list):
+    def __init__(self, container, a_list):
+        super().__init__(container)
+        self.container = container
         """Constructor, draws window and handles button presses
 
         Args:
@@ -14,13 +16,10 @@ class GameFrame:
         """
         self.a_list = a_list
         self.current_question = ""
-        self.root = tk.Tk()
-        self.root.title("Game")
         self.answer_list = []
         self.draw_buttons()
         self.draw_reset()
         self.get_question()
-        self.root.mainloop()
 
     def which_button(self, button, data):
         """Interpets what button has been pressed and runs functions
@@ -43,14 +42,14 @@ class GameFrame:
             message (str): name of atom to guess
         """
         text_string = "Where is: " + message + "?"
-        label = tk.Label(self.root, text=text_string)
+        label = tk.Label(self, text=text_string)
 
         label.grid(row=1, column=6, columnspan=4)
 
     def draw_reset(self):
         """Draws reset question label and reset button
         """
-        button = tk.Button(self.root,
+        button = tk.Button(self,
                            width=7,
                            height=2,
                            text="New question?",
@@ -76,9 +75,9 @@ class GameFrame:
 
                 if y > 6:
                     color = "blue"
-                button = tk.Button(self.root,
-                                   width=5,
-                                   height=5,
+                button = tk.Button(self,
+                                   width=3,
+                                   height=3,
                                    text="???",
                                    )
                 button.config(

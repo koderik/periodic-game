@@ -2,27 +2,28 @@ import tkinter as tk
 import random
 
 
-class QuestionFrame:
+class QuestionFrame(tk.Frame):
     """Frame that handles and displays all three types of atom questions
     """
 
-    def __init__(self, a_list, type):
-        """Constructor, draws base window 
+    def __init__(self, container, a_list, type):
+        """Constructor, draws label calls get_question()
 
         Args:
-            a_list (Atom_list): list with atoms to extract data from
+            container (tk.Tk): main frame
+            a_list (AtomList): list of atoms
             type (str): Type of question, "name", "number", or "weight"
         """
+        super().__init__(container)
+        self.container = container
+
         self.a_list = a_list
         self.type = type
         self.answer = ""
-        self.root = tk.Tk()
-        self.root.title("Guess the "+type.capitalize())
         self.get_question()
-        self.result_label = tk.Label(self.root)
+        self.result_label = tk.Label(self)
         self.result_label.config(font=("Courier", 17))
         self.result_label.grid(row=4, column=0, padx=0, pady=30, columnspan=3)
-        self.root.mainloop()
 
     def draw_weight_window(self, guess_list, question_string):
         """Draws graphics specific for weight question.
@@ -32,12 +33,12 @@ class QuestionFrame:
             question_string (str): String of question to display in label
         """
         qvar = question_string
-        question_label = tk.Label(self.root, text=qvar)
+        question_label = tk.Label(self, text=qvar)
         question_label.config(font=("Courier", 20))
         question_label.grid(row=0, column=0, columnspan=7, padx=30, pady=30)
         for index, element in enumerate(guess_list):
             text = element.weight
-            submit_button = tk.Button(self.root, width=3, height=2, text=text)
+            submit_button = tk.Button(self, width=3, height=2, text=text)
             submit_button.config(highlightbackground="white", fg="blue")
             submit_button.config(command=lambda m=submit_button,
                                  d="submit": self.which_button(m, d))
@@ -87,12 +88,13 @@ class QuestionFrame:
             question (str): String of question to display in label
         """
         qvar = question
-        question_label = tk.Label(self.root, text=qvar)
+        question_label = tk.Label(self, text=qvar)
         question_label.config(font=("Courier", 20))
         question_label.grid(row=0, column=0, columnspan=6, padx=30, pady=30)
-        self.answer_field = tk.Entry(self.root, textvar=self.answer)
-        self.answer_field.grid(row=1, column=0, padx=10, pady=0)
-        submit_button = tk.Button(self.root, width=3, height=2, text="Submit")
+        self.answer_field = tk.Entry(
+            self, textvar=self.answer,  borderwidth=1)
+        self.answer_field.grid(row=1, column=0, padx=10, pady=10)
+        submit_button = tk.Button(self, width=3, height=2, text="Submit")
         submit_button.config(highlightbackground="white", fg="blue")
         submit_button.config(command=lambda m=submit_button,
                              d="submit": self.which_button(m, d))
@@ -105,10 +107,13 @@ class QuestionFrame:
             button (Button): Button object that was pressed
             tag (str): special data that was sent with button press.
         """
+        if self.type not in "weight" and self.answer_field.get() == "":
+            return
         if tag == "submit":
             self.attempts -= 1
             if self.attempts >= 0:
                 if self.type not in "weight":
+
                     guess = self.answer_field.get()
                     self.answer_field.delete(0, "end")
                 else:
