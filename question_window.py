@@ -108,40 +108,56 @@ class QuestionFrame(tk.Frame):
             tag (str): special data that was sent with button press.
         """
         if self.type not in "weight" and self.answer_field.get() == "":
+            output = (
+                "Invalid input, answer cannot be empty"
+            )
+            self.result_label.config(text=output)
             return
-        if tag == "submit":
-            self.attempts -= 1
-            if self.attempts >= 0:
-                if self.type not in "weight":
+        if self.type in "name" and self.answer_field.get().isnumeric():
+            output = (
+                "Invalid input, guess the atom name, not the number"
+            )
+            self.result_label.config(text=output)
+            return
+        elif self.type in "number" and self.answer_field.get().isalpha():
+            output = (
+                "Invalid input, guess the atom number, not the name"
+            )
+            self.result_label.config(text=output)
+            return
 
-                    guess = self.answer_field.get()
-                    self.answer_field.delete(0, "end")
-                else:
-                    guess = button.cget("text")
-                if str(guess).lower() == str(self.answer).lower():
-                    output = "Good job you guessed it!"
-                    self.get_question()
-                elif self.attempts == 0:
-                    output = (
-                        "You didn't manage to guess it correctly\nThe answer was "
-                        + str(self.answer)
-                    )
-                    self.result_label.config(text=output)
-                    self.get_question()
-                else:
-                    output = (
-                        "You guessed incorrectly. "
-                        + str(self.attempts)
-                        + " attempts left"
-                    )
-                self.result_label.config(text=output)
+        self.attempts -= 1
+        if self.attempts >= 0:
+            if self.type not in "weight":
+
+                guess = self.answer_field.get()
+                self.answer_field.delete(0, "end")
             else:
+                guess = button.cget("text")
+            if str(guess).lower() == str(self.answer).lower():
+                output = "Good job you guessed it!"
+                self.get_question()
+            elif self.attempts == 0:
                 output = (
                     "You didn't manage to guess it correctly\nThe answer was "
                     + str(self.answer)
                 )
                 self.result_label.config(text=output)
                 self.get_question()
+            else:
+                output = (
+                    "You guessed incorrectly. "
+                    + str(self.attempts)
+                    + " attempts left"
+                )
+            self.result_label.config(text=output)
+        else:
+            output = (
+                "You didn't manage to guess it correctly\nThe answer was "
+                + str(self.answer)
+            )
+            self.result_label.config(text=output)
+            self.get_question()
 
     def get_alternatives(self, atom, index):
         """Helper function that generates a list of three
