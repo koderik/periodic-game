@@ -23,7 +23,7 @@ class MainFrame(tk.Tk):
         self.mainloop()
 
     def display_frame(self, frame):
-        """Displays frame
+        """Displays frame, destroys previous
 
         Args:
             frame (tk.Frame): frame to be displayed
