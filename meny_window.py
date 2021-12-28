@@ -36,7 +36,7 @@ class MenyFrame(tk.Frame):
         q.config(font=("Courier", 20))
         q.grid(row=0, column=0, padx=30, pady=30)
         self.row = 1
-        for key in self.functions.keys():
+        for key in self.functions:
             self.draw_button(key)
 
     def draw_button(self, key):
